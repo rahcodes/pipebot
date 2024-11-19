@@ -48,4 +48,10 @@ MOTOR4_IN3 = 16    #pin 16 (P5 pin 36)
 MOTOR4_IN4 = 6     #pin 6 (P5 pin 31)
 MOTOR4_EN = 19  # PWM0_CHAN3 ; pin 19 (P5 pin 35)
 
-#
+# Stepper Motor
+STEPPER_IN1 = 21    #pin 21 (P5 pin 40)
+STEPPER_IN2 = 20    #pin 20 (P5 pin 38)
+STEPPER_IN3 = 15    #pin 15 (P5 pin 10)
+STEPPER_IN4 = 14    #pin 14 (P5 pin 8)
+
+# 
