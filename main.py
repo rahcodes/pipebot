@@ -25,10 +25,11 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Pin Definitons:
+# GPIO pin configuration
+
+#LED
 ledPin = 23 # Broadcom pin 23 (P5 pin 16)
 
-# GPIO pin configuration
 # Motor Controller 1
 MOTOR1_IN1 = 17    #pin 17 (P5 pin 11)
 MOTOR1_IN2 = 27    #pin 27 (P5 pin 13)
@@ -46,3 +47,5 @@ MOTOR3_EN = 18  # PWM0_CHAN2 ; pin 12 (P5 pin 29)
 MOTOR4_IN3 = 16    #pin 16 (P5 pin 36)
 MOTOR4_IN4 = 6     #pin 6 (P5 pin 31)
 MOTOR4_EN = 19  # PWM0_CHAN3 ; pin 19 (P5 pin 35)
+
+#
