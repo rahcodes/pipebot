@@ -54,4 +54,11 @@ STEPPER_IN2 = 20    #pin 20 (P5 pin 38)
 STEPPER_IN3 = 15    #pin 15 (P5 pin 10)
 STEPPER_IN4 = 14    #pin 14 (P5 pin 8)
 
-# 
+# I2C Pin Setup:
+# GPIO2 -> SDA (Data line for I2C)
+# GPIO3 -> SCL (Clock line for I2C)
+# These pins are automatically used when you enable I2C in raspi-config.
+
+# Ultrasonic Sensor
+ULTRASONIC_TRIG = 4    # Pin 4 (P5 pin 7)
+ULTRASONIC_ECHO = 5    # Pin 5 (P5 pin 29)
