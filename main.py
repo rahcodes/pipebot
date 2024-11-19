@@ -24,3 +24,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# Pin Definitons:
+ledPin = 23 # Broadcom pin 23 (P1 pin 16)
