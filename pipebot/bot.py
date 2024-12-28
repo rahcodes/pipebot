@@ -18,7 +18,7 @@ class PipeBot:
         self._face_pins: list[OutputDevice] | None = None
         self._accelerometer: ADXL345 | None = None
         self._tyre_pins: list[OutputDevice] | None = None
-        self._pump: OutputDevice | None = None
+        self._pump_pins: list[OutputDevice] | None = None
 
     def init_camera(self) -> None:
         """Initializes camera"""
@@ -129,10 +129,10 @@ class PipeBot:
 
         return (pitch, roll)
 
-    def set_tyre_pins(self, in_1: int, in_2: int, in_3: int, in_4: int) -> None:
-        """Sets the pins for motor controller of the tyres (IN1, IN2, IN3, IN4)"""
+    def set_tyre_pins(self, in_1: int, in_2: int) -> None:
+        """Sets the pins for motor controller of the tyres (IN1, IN2)"""
 
-        self._tyre_pins = [OutputDevice(pin) for pin in (in_1, in_2, in_3, in_4)]
+        self._tyre_pins = [OutputDevice(pin) for pin in (in_1, in_2)]
 
     def move_robot(
         self, duration: float, direction: Literal["forward", "backward"]
@@ -147,24 +147,23 @@ class PipeBot:
 
         if direction == "forward":
             self._tyre_pins[0].on()
-            self._tyre_pins[2].on()
         else:
             self._tyre_pins[1].on()
-            self._tyre_pins[3].on()
 
         sleep(duration)
+
         [pin.off() for pin in self._tyre_pins]
 
-    def set_pump_pin(self, pin: int) -> None:
-        """Sets the pin for the pump motor"""
+    def set_pump_pins(self, in_1: int, in_2: int) -> None:
+        """Sets the pins for motor controller of the pump (IN1, IN2)"""
 
-        self._pump = OutputDevice(pin)
+        self._pump_pins = [OutputDevice(pin) for pin in (in_1, in_2)]
 
     def run_pump(self, duration: float) -> None:
         """Runs the pump for given duration in seconds"""
 
-        assert self._pump, "Pump pin is not set."
+        assert self._pump_pins, "Pump pins are not set."
 
-        self._pump.on()
+        self._pump_pins[0].on()
         sleep(duration)
-        self._pump.off()
+        self._pump_pins[1].off()
