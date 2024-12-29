@@ -5,14 +5,16 @@ from time import sleep
 from board import I2C
 from subprocess import check_output
 from adafruit_adxl34x import ADXL345
+from picamera2 import Picamera2
 from typing import Literal
+from cv2.typing import MatLike
 
 from .constants import STEPPER_SIGNALS, ACCELEROMETER_ADDRESS
 
 
 class PipeBot:
     def __init__(self) -> None:
-        self._camera: None = None
+        self._camera: Picamera2 | None = None
         self._flashlight: LED | None = None
         self._diameter_reader: DistanceSensor | None = None
         self._face_pins: list[OutputDevice] | None = None
@@ -23,13 +25,19 @@ class PipeBot:
     def init_camera(self) -> None:
         """Initializes camera"""
 
-        raise NotImplemented("init_camera method is not implemented yet.")
+        self._camera = Picamera2()
+        self._camera.preview_configuration.main.size = (1080, 1080)
+        self._camera.preview_configuration.main.format = "RGB888"
+        self._camera.start()
 
-    def capture_image(self) -> None:
-        """Captures and returns the image from the camera"""
+    def capture_image(self) -> MatLike:
+        """Captures and returns the image from the camera in opencv format"""
 
         assert self._camera, "Camera is not initialized."
-        raise NotImplemented("capture_image method is not implemented yet.")
+        
+        image = self._camera.capture_array()
+        
+        return image
 
     def set_flashlight_pin(self, pin: int) -> None:
         """Sets the pin for LEDs used for the camera"""
@@ -146,9 +154,9 @@ class PipeBot:
         ], f"Invalid direction to move '{direction}'"
 
         if direction == "forward":
-            self._tyre_pins[0].on()
-        else:
             self._tyre_pins[1].on()
+        else:
+            self._tyre_pins[0].on()
 
         sleep(duration)
 
@@ -166,4 +174,4 @@ class PipeBot:
 
         self._pump_pins[0].on()
         sleep(duration)
-        self._pump_pins[1].off()
+        self._pump_pins[0].off()
