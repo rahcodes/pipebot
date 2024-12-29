@@ -102,6 +102,8 @@ class PipeBot:
                         self._face_pins[pin].off()
                 sleep(step_delay)
 
+        [pin.off() for pin in self._face_pins]
+
     def init_accelerometer(self) -> None:
         """Initializes I2C for accelerometer. Connection must be SDA->GPIO2 and SCL->GPIO3"""
 
@@ -175,3 +177,4 @@ class PipeBot:
         self._pump_pins[0].on()
         sleep(duration)
         self._pump_pins[0].off()
+
